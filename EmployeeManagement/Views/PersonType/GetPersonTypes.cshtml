@@ -1,0 +1,26 @@
+﻿@model List<EmployeeManagement.ViewModels.PersonTypeVM>
+@{
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var personType in Model)
+        {
+            <tr>
+                <td>@personType.Id</td>
+                <td>@personType.Name</td>
+                <td><a href="UpdatePersonType/@personType.Id">Update/Delete</a></td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+

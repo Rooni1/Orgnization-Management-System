@@ -1,0 +1,25 @@
+﻿@model List<EmployeeManagement.ViewModels.DepartmentVM>
+@{
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var department in Model)
+        {
+            <tr>
+                <td>@department.Id</td>
+                <td>@department.Name</td>
+                <td><a href="UpdateDepartment/@department.Id">Update/Delete</a></td>
+                
+            </tr>
+        }
+    </tbody>
+</table>

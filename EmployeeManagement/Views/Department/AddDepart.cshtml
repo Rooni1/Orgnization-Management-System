@@ -1,0 +1,19 @@
+﻿@model EmployeeManagement.ViewModels.DepartmentVM
+
+@{
+}
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1> Add New Department</h1>
+    </div>
+
+</div>
+<form method="post" action="AddDepart">
+    <div class="mb-3">
+        <label for=class="form-label">Name</label>
+        <input type="text" class="form-control" asp-for="Name">
+        
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

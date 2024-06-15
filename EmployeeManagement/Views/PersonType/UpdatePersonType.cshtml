@@ -1,0 +1,15 @@
+﻿@model EmployeeManagement.ViewModels.PersonTypeVM
+@{
+}
+<form method="post" action="UpdatePersonType">
+    <div class="mb-3">
+        <label for= class="form-label">Id</label>
+        <input type="text" class="form-control" asp-for="Id" readonly>
+        <label for= class="form-label">Name</label>
+        <input type="text" class="form-control" asp-for="Name">
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+    <button type="submit" class="btn btn-danger" asp-action="DeletePersonType" asp-controller="PersonType">Delete</button>
+</form>

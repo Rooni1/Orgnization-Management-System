@@ -1,0 +1,44 @@
+﻿@model List<EmployeeManagement.ViewModels.PersonVM>
+@{
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Adress</th>
+            <th>Phone</th>
+            <th>E-Mail</th>
+            <th>Sallary</th>
+            <th>Designation</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Person Type</th>
+            <th>Department Name</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var persons in Model)
+        {
+            <tr>
+                <td>@persons.Id</td>
+                <td>@persons.FirstName</td>
+                <td>@persons.LastName</td>
+                <td>@persons.Address</td>
+                <td>@persons.Phone</td>
+                <td>@persons.Email</td>
+                <td>@persons.Sallary</td>
+                <td>@persons.Designation</td>
+                <td>@persons.StartDate</td>
+                <td>@persons.EndDate</td>
+                <td>@persons.PersonTypeName</td>
+                <td>@persons.DepartmentName</td>
+                <td><a href="UpdatePerson/@persons.Id">Update/Delete</a></td>
+
+            </tr>
+        }
+    </tbody>
+</table>
