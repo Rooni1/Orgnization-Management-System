@@ -4,6 +4,7 @@ using EmployeeManagement.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
+using System.Linq;
 
 namespace EmployeeManagement.Broker
 {
@@ -19,7 +20,8 @@ namespace EmployeeManagement.Broker
             
         }
         public void AddDepartment(DepartmentVM departVM)
-        { 
+        {
+              
             var newDepartment = new Department 
             { 
                 Id = Guid.NewGuid(),
@@ -35,6 +37,11 @@ namespace EmployeeManagement.Broker
             var departments =  await _personDbContext.Departments.Select(x=> new DepartmentVM { Id = x.Id,Name =x.Name}).ToListAsync();
            
             return departments;
+        }
+        public List<Department> GetAllDepartments()
+        {
+            var allDepartments = _personDbContext.Departments.Select(x => new Department { Name = x.Name} ).ToList();
+            return allDepartments;
         }
         public Department GetDepartmentById(Guid id)
         {
