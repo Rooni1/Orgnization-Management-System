@@ -2,6 +2,7 @@
 using EmployeeManagement.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Threading;
 
 namespace EmployeeManagement.Controllers
 {
@@ -13,15 +14,33 @@ namespace EmployeeManagement.Controllers
         {
             _broker = broker;
         }
+        string test;
+            
 
         [HttpGet]
-        public IActionResult AddDepart()
+        public IActionResult AddDepart(string message)
         {
+            if(message != null)
+            {
+                ViewBag.Message = "Department Already Exist";
+            }
+           
             return View();
         }
         [HttpPost]
         public IActionResult AddDepart(DepartmentVM departVM)
         {
+            var exisistingDepartments = _broker.GetAllDepartments();
+            foreach (var department in exisistingDepartments)
+            {
+                if(department.Name == departVM.Name)
+                {
+                    test = department.Name;
+                    return RedirectToAction("AddDepart", new { message = test });
+
+                }
+
+            }
             _broker.AddDepartment(departVM);
             ModelState.Clear();
 
