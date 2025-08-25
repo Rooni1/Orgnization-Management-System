@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EmployeeManagement.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class OrgDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -71,7 +71,6 @@ namespace EmployeeManagement.Migrations
                 },
                 constraints: table =>
                 {
-
                     table.PrimaryKey("PK_PersonPersonType", x => new { x.PersonTypeId, x.PersonsId });
                     table.ForeignKey(
                         name: "FK_PersonPersonType_PersonTypes_PersonTypeId",

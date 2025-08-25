@@ -14,13 +14,13 @@ namespace EmployeeManagement.Models
         public string Designation { get; set; }
         public Guid DepartmentsId { get; set; }
         //[ForeignKey("PersonTypeId")]
-        //public Guid PersonTypeId { get; set; }
+        public Guid PersonTypeId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         //public string DepartmentName { get; set; }
         //public string PersonTypeName { get; set; }
         public Department Departments { get; set; }
-        public ICollection<PersonType> PersonType { get; set; }
+        public PersonType PersonTypes { get; set; }
 
 
     }
