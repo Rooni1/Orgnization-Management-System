@@ -4,6 +4,7 @@ using EmployeeManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeManagement.Migrations
 {
     [DbContext(typeof(PersonDbContext))]
-    partial class PersonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250821110856_Updated MIg")]
+    partial class UpdatedMIg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,8 +89,6 @@ namespace EmployeeManagement.Migrations
 
                     b.HasIndex("DepartmentsId");
 
-                    b.HasIndex("PersonTypeId");
-
                     b.ToTable("Persons");
                 });
 
@@ -106,6 +107,21 @@ namespace EmployeeManagement.Migrations
                     b.ToTable("PersonTypes");
                 });
 
+            modelBuilder.Entity("PersonPersonType", b =>
+                {
+                    b.Property<Guid>("PersonTypesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PersonsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("PersonTypesId", "PersonsId");
+
+                    b.HasIndex("PersonsId");
+
+                    b.ToTable("PersonPersonType");
+                });
+
             modelBuilder.Entity("EmployeeManagement.Models.Person", b =>
                 {
                     b.HasOne("EmployeeManagement.Models.Department", "Departments")
@@ -114,23 +130,25 @@ namespace EmployeeManagement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EmployeeManagement.Models.PersonType", "PersonTypes")
-                        .WithMany("Persons")
-                        .HasForeignKey("PersonTypeId")
+                    b.Navigation("Departments");
+                });
+
+            modelBuilder.Entity("PersonPersonType", b =>
+                {
+                    b.HasOne("EmployeeManagement.Models.PersonType", null)
+                        .WithMany()
+                        .HasForeignKey("PersonTypesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Departments");
-
-                    b.Navigation("PersonTypes");
+                    b.HasOne("EmployeeManagement.Models.Person", null)
+                        .WithMany()
+                        .HasForeignKey("PersonsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("EmployeeManagement.Models.Department", b =>
-                {
-                    b.Navigation("Persons");
-                });
-
-            modelBuilder.Entity("EmployeeManagement.Models.PersonType", b =>
                 {
                     b.Navigation("Persons");
                 });

@@ -16,12 +16,14 @@ namespace EmployeeManagement.Broker
         public void AddPerson(PersonVM personVM)
         {
             
-            var perType = GetPersonTypeById(personVM.Id);
-            CreatingRelventObject(personVM);          
+            var perTypeId = GetPersonTypeById(personVM.Id);
+            CreatingRelventObject(personVM);
+          
         }
         private void CreatingRelventObject(PersonVM personVM)
         {
-         
+
+                
                 var newPerson = new Person
                 {
                     Id = new Guid(),
@@ -35,14 +37,16 @@ namespace EmployeeManagement.Broker
                     Designation = personVM.Designation,
                     Address = personVM.Address,
                     DepartmentsId = personVM.DepartmentId,
+                    PersonTypeId = personVM.PersonTypesId
                 };
                 _personDbContext.Persons.Add(newPerson);
                 _personDbContext.SaveChanges();           
         }
         public async Task<List<PersonVM>> GetPersons()
         {
-            var persons =  await _personDbContext.Persons.Include(y => y.Departments).Include(x => x.PersonType).ToListAsync();
+            var persons =  await _personDbContext.Persons.Include(y => y.Departments).Include(x => x.PersonTypes).ToListAsync();
             var personsList = new List<PersonVM>();
+           
 
 
             foreach (var x in persons) 
@@ -59,7 +63,7 @@ namespace EmployeeManagement.Broker
                 personVM.Designation = x.Designation;
                 personVM.Address = x.Address;
                 personVM.DepartmentName = x.Departments.Name;
-
+                personVM.PersonTypeName = x.PersonTypes.Name;
                 personsList.Add(personVM);
             }
 
@@ -67,22 +71,29 @@ namespace EmployeeManagement.Broker
         }
         public Person GetPersonById(Guid id)
         {
-            var person = _personDbContext.Persons.FirstOrDefault(x => x.Id == id);
+            var person = _personDbContext.Persons.Include(x=>x.Departments).Include(y=>y.PersonTypes).FirstOrDefault(x => x.Id == id);
             return person;
         }
         public void UpdatePerson(PersonVM personVM)
         {
-            //var person = _personDbContext.Persons.Find(personVM.Id);
-            //var employ = new
-            //if (person != null)
-            //{
-            //    person.FirstName = personVM.FirstName;
-            //    person.LastName = personVM.LastName;
-            //    person.Address = personVM.Address;
-            //    person.
-            //    _personDbContext.SaveChanges();
+            var person = _personDbContext.Persons.Find(personVM.Id);
+            
+            if (person != null)
+            {
+                person.FirstName = personVM.FirstName;
+                person.LastName = personVM.LastName;
+                person.Phone = personVM.Phone;
+                person.Email = personVM.Email;
+                person.Sallary = personVM.Sallary;
+                person.StartDate = (DateTime)personVM.StartDate;
+                person.EndDate = (DateTime)personVM.EndDate;
+                person.Designation = personVM.Designation;
+                person.Address = personVM.Address;
+                person.DepartmentsId = personVM.DepartmentId;
+                person.PersonTypeId = personVM.PersonTypesId;
+                _personDbContext.SaveChanges();
 
-            //}
+            }
 
         }
         public void DeleteDepartments(DepartmentVM depatVM)
@@ -132,6 +143,15 @@ namespace EmployeeManagement.Broker
             if(perType != null)
             {
                 _personDbContext.PersonTypes.Remove(perType);
+                _personDbContext.SaveChanges();
+            }
+        }
+        public void DeletePerson(PersonVM personVM)
+        {
+            var person = _personDbContext.Persons.Find(personVM.Id);
+            if (person != null)
+            {
+                _personDbContext.Persons.Remove(person);
                 _personDbContext.SaveChanges();
             }
         }

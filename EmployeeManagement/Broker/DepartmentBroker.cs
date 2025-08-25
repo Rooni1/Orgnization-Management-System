@@ -38,9 +38,9 @@ namespace EmployeeManagement.Broker
            
             return departments;
         }
-        public List<Department> GetAllDepartments()
+        public async Task<List<Department>> GetAllDepartments()
         {
-            var allDepartments = _personDbContext.Departments.Select(x => new Department { Name = x.Name} ).ToList();
+            var allDepartments = await _personDbContext.Departments.Select(x => new Department { Name = x.Name} ).ToListAsync();
             return allDepartments;
         }
         public Department GetDepartmentById(Guid id)

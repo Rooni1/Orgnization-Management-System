@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeManagement.Migrations
 {
     [DbContext(typeof(PersonDbContext))]
-    [Migration("20240610190930_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20250814110408_OrgDb")]
+    partial class OrgDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

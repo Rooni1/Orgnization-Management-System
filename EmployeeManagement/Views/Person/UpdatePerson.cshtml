@@ -1,17 +1,11 @@
 ﻿@model EmployeeManagement.ViewModels.PersonVM
-
-
 @{
 }
-<div class="bg-secondary bg-opacity-10 py-2">
-    <div class="container">
-        <h1> Add New Person</h1>
-    </div>
-
-</div>
 <form method="post" action="AddPerson">
-   
+
     <div class="mb-3">
+        <label for= class="form-label">Id</label>
+        <input type="text" class="form-control" asp-for="Id" readonly>
         <label for= class="form-label">First Name</label>
         <input type="text" class="form-control" asp-for="FirstName">
         <label for= class="form-label">Last Name</label>
@@ -30,18 +24,23 @@
         <input type="text" class="form-control" asp-for="StartDate">
         <label for= class="form-label">End Date</label>
         <input type="text" class="form-control" asp-for="EndDate">
-   
-      @*   <select class="form-select" asp-for="Id" asp-items=" ViewBag.PersonType">
-            <option selected>Select Person Type</option>
-         </select> *@
+      @*   <label for= class="form-label">Current Employee Type</label>
+        <input type="text" class="form-control" asp-for="PersonTypeName" readonly>
+        <label for= class="form-label">Current Department</label>
+        <input type="text" class="form-control" asp-for="DepartmentName" readonly> *@
+
+        @*   <select class="form-select" asp-for="Id" asp-items=" ViewBag.PersonType">
+        <option selected>Select Person Type</option>
+        </select> *@
         <div class="mb-1">
-            @Html.DropDownListFor(n => n.PersonTypesId, new SelectList((ViewBag.PersonType) as SelectList, "Value", "Text"), "Select Person Type")
+            @Html.DropDownListFor(n => n.PersonTypesId, new SelectList((ViewBag.PersonType) as SelectList, "Value", "Text"),  "Select New Person Type")
         </div>
         <div class="mb-1">
-            @Html.DropDownListFor(m => m.DepartmentId, new SelectList((ViewBag.Departments) as SelectList, "Value", "Text"), "Select Department")
+            @Html.DropDownListFor(m => m.DepartmentId, new SelectList((ViewBag.Departments) as SelectList, "Value", "Text"), "Select New Department")
         </div>
-          
+
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <button type="submit" class="btn btn-danger" asp-action="DeletePerson" asp-controller="Person">Delete</button>
 </form>

@@ -14,8 +14,7 @@ namespace EmployeeManagement.Controllers
         {
             _broker = broker;
         }
-        string test;
-            
+                  
 
         [HttpGet]
         public IActionResult AddDepart(string message)
@@ -28,15 +27,15 @@ namespace EmployeeManagement.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddDepart(DepartmentVM departVM)
+        public async Task<IActionResult> AddDepart(DepartmentVM departVM)
         {
-            var exisistingDepartments = _broker.GetAllDepartments();
-            foreach (var department in exisistingDepartments)
+            var exsitingDepartments = await _broker.GetAllDepartments();
+            foreach (var department in exsitingDepartments)
             {
                 if(department.Name == departVM.Name)
                 {
-                    test = department.Name;
-                    return RedirectToAction("AddDepart", new { message = test });
+                    var depart = department.Name;
+                    return RedirectToAction("AddDepart", new { message = depart });
 
                 }
 
