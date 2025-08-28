@@ -4,14 +4,24 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+Project-Management
+    <UserSecretsId>e5386cc3-9d83-4930-b859-0fde2a412ec2</UserSecretsId>
+
     <InvariantGlobalization>true</InvariantGlobalization>
     <UserSecretsId>a25e2c01-17e7-48a5-ad41-70d12cfb693c</UserSecretsId>
+master
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+ Project-Management
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EmployeeManagement\EmployeeManagement.csproj" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+master
   </ItemGroup>
 
 </Project>

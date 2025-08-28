@@ -1,0 +1,61 @@
+﻿@model ProjectManagement.ViewModel.ProjectViewModel
+
+@{
+}
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>Create Project</h1>
+    </div>
+
+</div>
+<form method="post" action="CreateProject">
+
+    <div class="mb-3">
+        <label for= class="form-label">Name</label>
+        <input type="text" class="form-control" asp-for="Name">
+        <label for= class="form-label">Description</label>
+        <input type="text" class="form-control" asp-for="Description">
+        <label for= class="form-label">Start Date</label>
+        <input type="text" class="form-control" asp-for="StartDate">
+        <label for= class="form-label">End Date</label>
+        <input type="text" class="form-control" asp-for="EndDate">
+        <label for= class="form-label">Status</label>
+        <input type="text" class="form-control" asp-for="Status">
+        <label for= class="form-label">Department</label>
+        <input type="text" class="form-control" asp-for="Department">
+       
+        
+        <label for= class="form-label">Client Name</label>
+        <input type="text" class="form-control" asp-for="ClientName">
+        <label for= class="form-label">Client Email</label>
+        <input type="text" class="form-control" asp-for="ClientEmail">
+        <label for= class="form-label">Client Adress</label>
+        <input type="text" class="form-control" asp-for="ClientAdress">
+        <label for= class="form-label">Country</label>
+        <input type="text" class="form-control" asp-for="Country">
+        <label for= class="form-label">Created At</label>
+        <input type="text" class="form-control" asp-for="CreatedAt">
+        <label for= class="form-label">Updated At</label>
+        <input type="text" class="form-control" asp-for="UpdatedAt">
+        <label for= class="form-label">Last Updated</label>
+        <input type="text" class="form-control" asp-for="LastUpdatedAt">
+       
+        <label for= class="form-label">Department</label>
+        <input type="text" class="form-control" asp-for="Department">
+
+
+
+        @*   <select class="form-select" asp-for="Id" asp-items=" ViewBag.PersonType">
+        <option selected>Select Person Type</option>
+        </select> *@
+      @*   <div class="mb-1">
+            @Html.DropDownListFor(n => n.PersonTypesId, new SelectList((ViewBag.PersonType) as SelectList, "Value", "Text"), "Select Person Type")
+        </div> *@
+        <div class="mb-1">
+            @Html.DropDownListFor(m => m.DepartmentId, new SelectList((ViewBag.Departments) as SelectList, "Value", "Text"), "Select Department")
+        </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
