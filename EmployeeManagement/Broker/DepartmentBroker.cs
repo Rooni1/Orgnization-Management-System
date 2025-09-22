@@ -1,5 +1,5 @@
 ﻿using EmployeeManagement.Data;
-using EmployeeManagement.Models;
+using EmployeeManagement.Models.Departments;
 using EmployeeManagement.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

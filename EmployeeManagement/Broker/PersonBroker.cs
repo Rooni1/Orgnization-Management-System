@@ -98,12 +98,12 @@ namespace EmployeeManagement.Broker
         }
         public void DeleteDepartments(DepartmentVM depatVM)
         {
-            var department = _personDbContext.Departments.Find(depatVM.Id);
-            if (department != null)
-            {
-                _personDbContext.Departments.Remove(department);
-                _personDbContext.SaveChanges();
-            }
+            //var department = _personDbContext.Departments.Find(depatVM.Id);
+            //if (department != null)
+            //{
+            //    //_personDbContext.Departments.Remove(department);
+            //    _personDbContext.SaveChanges();
+            //}
         }
 
         public void AddPersonType(PersonTypeVM personTVM)

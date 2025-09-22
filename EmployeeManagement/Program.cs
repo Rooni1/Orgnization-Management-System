@@ -10,6 +10,7 @@ builder.Services.AddDbContext<PersonDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("OrgMangConnectionString")));
 builder.Services.AddScoped<DepartmentBroker>();
 builder.Services.AddScoped<PersonBroker>();
+builder.Services.AddScoped<ProjectBroker>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

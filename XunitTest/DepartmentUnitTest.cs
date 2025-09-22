@@ -1,4 +1,4 @@
-using EmployeeManagement.Models;
+using EmployeeManagement.Models.Departments;
 using System;
 
 namespace XunitTest
