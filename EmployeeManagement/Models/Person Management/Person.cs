@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using EmployeeManagement.Models.Departments;
 
 namespace EmployeeManagement.Models
 {

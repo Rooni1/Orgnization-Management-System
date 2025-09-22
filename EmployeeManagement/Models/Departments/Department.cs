@@ -1,4 +1,4 @@
-﻿namespace EmployeeManagement.Models
+﻿namespace EmployeeManagement.Models.Departments
 {
     public class Department
     {
@@ -19,6 +19,6 @@
                 }
             }
         }
-       public ICollection<Person> Persons { get; set; }
+        public ICollection<Person> Persons { get; set; }
     }
 }

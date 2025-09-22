@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeManagement.Migrations
 {
     [DbContext(typeof(PersonDbContext))]
-    [Migration("20250814110408_OrgDb")]
-    partial class OrgDb
+    [Migration("20250919105124_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace EmployeeManagement.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("EmployeeManagement.Models.Department", b =>
+            modelBuilder.Entity("EmployeeManagement.Models.Departments.Department", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,6 +72,9 @@ namespace EmployeeManagement.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("PersonTypeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Phone")
                         .HasColumnType("int");
 
@@ -85,6 +88,8 @@ namespace EmployeeManagement.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentsId");
+
+                    b.HasIndex("PersonTypeId");
 
                     b.ToTable("Persons");
                 });
@@ -104,48 +109,93 @@ namespace EmployeeManagement.Migrations
                     b.ToTable("PersonTypes");
                 });
 
-            modelBuilder.Entity("PersonPersonType", b =>
+            modelBuilder.Entity("EmployeeManagement.Models.Project_Management.Project", b =>
                 {
-                    b.Property<Guid>("PersonTypeId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("PersonsId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ClientAdress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("PersonTypeId", "PersonsId");
+                    b.Property<string>("ClientEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("PersonsId");
+                    b.Property<string>("ClientName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("PersonPersonType");
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DepartmentName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastUpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ManagerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("EmployeeManagement.Models.Person", b =>
                 {
-                    b.HasOne("EmployeeManagement.Models.Department", "Departments")
+                    b.HasOne("EmployeeManagement.Models.Departments.Department", "Departments")
                         .WithMany("Persons")
                         .HasForeignKey("DepartmentsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Departments");
-                });
-
-            modelBuilder.Entity("PersonPersonType", b =>
-                {
-                    b.HasOne("EmployeeManagement.Models.PersonType", null)
-                        .WithMany()
+                    b.HasOne("EmployeeManagement.Models.PersonType", "PersonTypes")
+                        .WithMany("Persons")
                         .HasForeignKey("PersonTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EmployeeManagement.Models.Person", null)
-                        .WithMany()
-                        .HasForeignKey("PersonsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Departments");
+
+                    b.Navigation("PersonTypes");
                 });
 
-            modelBuilder.Entity("EmployeeManagement.Models.Department", b =>
+            modelBuilder.Entity("EmployeeManagement.Models.Departments.Department", b =>
+                {
+                    b.Navigation("Persons");
+                });
+
+            modelBuilder.Entity("EmployeeManagement.Models.PersonType", b =>
                 {
                     b.Navigation("Persons");
                 });
