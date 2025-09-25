@@ -34,18 +34,20 @@ namespace EmployeeManagement.Controllers
             if (ModelState.IsValid)
             {
                 // Call the broker to create the project
-               
-
-                _projectBroker.CreateProject(projectVM);
-
+               _projectBroker.CreateProject(projectVM);
                 ModelState.Clear();
                 return RedirectToAction("CreateProject");
             }
 
             var departments = await _departmentBroker.GetAllDepartments();
             ViewBag.Departments = new SelectList(departments, "Id", "Name");
-
             return View(projectVM);
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetProjects()
+        {
+            var projects = await _projectBroker.GetProjects();
+            return View(projects);
         }
 
     }
