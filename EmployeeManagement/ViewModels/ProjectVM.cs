@@ -16,7 +16,7 @@
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public DateTime LastUpdatedAt { get; set; }
-        //public string DepartmentName { get; set; }
+        public string DepartmentName { get; set; }
         public Guid DepartmentId { get; set; }
     }
 }

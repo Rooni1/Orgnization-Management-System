@@ -35,5 +35,29 @@ namespace EmployeeManagement.Broker
             _personDbContext.Projects.Add(newProject);
             _personDbContext.SaveChanges();
         }
+        public async Task<List<ProjectVM>> GetProjects()
+        {
+            var projects = _personDbContext.Projects.ToList();
+            var projectVMs = projects.Select(p => new ProjectVM
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Description = p.Description,
+                StartDate = p.StartDate,
+                EndDate = p.EndDate,
+                ManagerName = p.ManagerName,
+                ClientName = p.ClientName,
+                ClientEmail = p.ClientEmail,
+                ClientAdress = p.ClientAdress,
+                Country = p.Country,
+                Status = p.Status,
+                CreatedAt = p.CreatedAt,
+                UpdatedAt = p.UpdatedAt,
+                LastUpdatedAt = p.LastUpdatedAt,
+                DepartmentName = p.DepartmentName
+            }).ToList();
+
+            return await Task.FromResult(projectVMs);
+        }
     }
 }
