@@ -54,10 +54,67 @@ namespace EmployeeManagement.Broker
                 CreatedAt = p.CreatedAt,
                 UpdatedAt = p.UpdatedAt,
                 LastUpdatedAt = p.LastUpdatedAt,
-                DepartmentName = p.DepartmentName
+                DepartmentN = p.DepartmentName
             }).ToList();
 
             return await Task.FromResult(projectVMs);
+        }
+        public ProjectVM GetProjectById(Guid id)
+        {
+            var oldproject = _personDbContext.Projects.FirstOrDefault(x => x.Id == id);
+            var projectVMs = new ProjectVM
+            {
+                Id = oldproject.Id,
+                Name = oldproject.Name,
+                Description = oldproject.Description,
+                StartDate = oldproject.StartDate,
+                EndDate = oldproject.EndDate,
+                ManagerName = oldproject.ManagerName,
+                ClientName = oldproject.ClientName,
+                ClientEmail = oldproject.ClientEmail,
+                ClientAdress = oldproject.ClientAdress,
+                Country = oldproject.Country,
+                Status = oldproject.Status,
+                CreatedAt = oldproject.CreatedAt,
+                UpdatedAt = oldproject.UpdatedAt,
+                LastUpdatedAt = oldproject.LastUpdatedAt,
+                DepartmentN = oldproject.DepartmentName
+            };
+
+            return projectVMs;
+        }
+        public void UpdateProject(ProjectVM projectVM)
+        {
+            var department = _personDbContext.Departments.Find(projectVM.DepartmentId);
+            var project = _personDbContext.Projects.Find(projectVM.Id);
+            if (project != null)
+            {
+                project.Name = projectVM.Name;
+                project.Description = projectVM.Description;
+                project.StartDate = (DateTime)projectVM.StartDate;
+                project.EndDate = (DateTime)projectVM.EndDate;
+                project.ManagerName = projectVM.ManagerName;
+                project.ClientName = projectVM.ClientName;
+                project.ClientEmail = projectVM.ClientEmail;
+                project.ClientAdress = projectVM.ClientAdress;
+                project.Country = projectVM.Country;
+                project.Status = projectVM.Status;
+                project.UpdatedAt = projectVM.UpdatedAt;
+                project.LastUpdatedAt = DateTime.Now;
+                project.DepartmentName = projectVM.DepartmentN;
+               
+            }
+            _personDbContext.Update(project);
+            _personDbContext.SaveChanges();
+        }
+        public void DeleteProject(ProjectVM projectVM)
+        {
+            var project = _personDbContext.Projects.Find(projectVM.Id);
+            if (project != null)
+            {
+                _personDbContext.Projects.Remove(project);
+                _personDbContext.SaveChanges();
+            }
         }
     }
 }

@@ -3,7 +3,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Id</th>
+            <th hidden>Id</th>
             <th>Name</th>
             <th>Description</th>
             <th>StartDate</th>
@@ -26,14 +26,14 @@
         @foreach (var project in Model)
         {
             <tr>
-                <td>@project.Id</td>
+                <td hidden>@project.Id</td>
                 <td>@project.Name</td>
                 <td>@project.Description</td>
                 <td>@project.StartDate</td>
                 <td>@project.EndDate</td>
                 <td>@project.Status</td>
                 <td>@project.ManagerName</td>
-                <td>@project.DepartmentName</td>
+                <td>@project.DepartmentN</td>
                 <td>@project.ClientName</td>
                 <td>@project.ClientEmail</td>
                 <td>@project.ClientAdress</td>
@@ -41,7 +41,7 @@
                 <td>@project.CreatedAt</td>
                 <td>@project.UpdatedAt</td>
                 <td>@project.LastUpdatedAt</td>
-                <td><a href="UpdatePerson/@project.Id">Update/Delete</a></td>
+                <td><a href="UpdateProject/@project.Id">Update/Delete</a></td>
 
             </tr>
         }
