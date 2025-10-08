@@ -1,19 +1,17 @@
 ﻿@model EmployeeManagement.ViewModels.ProjectVM
-
 @{
-   
 }
-
-
 <div class="bg-secondary bg-opacity-10 py-2">
     <div class="container">
-        <h1>Create Project</h1>
+        <h1>Update/Delete Project</h1>
     </div>
 
 </div>
-<form method="post" action="CreateProject">
+<form method="post" action="UpdateProject">
 
     <div class="mb-3">
+        <label for= class="form-label" hidden>Id</label>
+        <input type="text" class="form-control" asp-for="Id" hidden>
         <label for= class="form-label">Name</label>
         <input type="text" class="form-control" asp-for="Name">
         <label for= class="form-label">Description</label>
@@ -35,16 +33,15 @@
         <label for= class="form-label">Country</label>
         <input type="text" class="form-control" asp-for="Country">
         <label for= class="form-label">Created At</label>
-        <input type="text" class="form-control" asp-for="CreatedAt">
+        <input type="text" class="form-control" asp-for="CreatedAt" readonly>
         <label for= class="form-label">Updated At</label>
         <input type="text" class="form-control" asp-for="UpdatedAt">
         <label for= class="form-label">Last Updated</label>
         <input type="text" class="form-control" asp-for="LastUpdatedAt">
-                        
-        <div class="mb-1">
-            @Html.DropDownListFor(m => m.DepartmentId, new SelectList((ViewBag.Departments) as SelectList, "Value", "Text"), "Select Department")
-        </div>
-    </div>
+        <label for= class="form-label">Department Name</label>
+        <input type="text" class="form-control" asp-for="DepartmentN" readonly>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-danger" asp-action="DeleteProject" asp-controller="Project">Delete</button>
 </form>
