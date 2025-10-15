@@ -10,11 +10,12 @@ namespace EmployeeManagement.Controllers
     {
         private readonly DepartmentBroker _departmentBroker;
         private readonly ProjectBroker _projectBroker;
-        public ProjectController(DepartmentBroker departmentBroker, ProjectBroker projectBroker)
+        private readonly PersonBroker _personBroker;
+        public ProjectController(DepartmentBroker departmentBroker, ProjectBroker projectBroker, PersonBroker personBroker)
         {
             _departmentBroker = departmentBroker;
             _projectBroker = projectBroker;
-
+            _personBroker = personBroker;
         }
         public IActionResult Index()
         {
@@ -73,5 +74,25 @@ namespace EmployeeManagement.Controllers
             _projectBroker.DeleteProject(projectVM);
             return RedirectToAction("GetProjects");
         }
+        [HttpGet]
+        public async Task<IActionResult> CreateTask()
+        {
+            var projects = await _projectBroker.GetProjects();
+            ViewBag.Projects = new SelectList(projects, "Id", "Name");
+            var persons = await _personBroker.GetPersons();
+            
+            var personList = new List<PersonVM>();
+            foreach (var person in persons)
+            {
+                var personVM = new PersonVM();
+                personVM.Id = person.Id;
+                personVM.FirstName = person.FirstName + " " + person.LastName;
+                personList.Add(personVM);
+            }
+            
+            ViewBag.Persons = new SelectList(personList, "Id", "FirstName");
+            return View();
+        }
+
     }
 }
