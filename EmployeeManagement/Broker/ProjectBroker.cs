@@ -57,7 +57,7 @@ namespace EmployeeManagement.Broker
                 DepartmentN = p.DepartmentName
             }).ToList();
 
-            return await Task.FromResult(projectVMs);
+            return projectVMs;
         }
         public ProjectVM GetProjectById(Guid id)
         {
