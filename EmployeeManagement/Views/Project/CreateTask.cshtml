@@ -8,29 +8,29 @@
     </div>
 
 </div>
-<form method="post" action="CreateProject">
+<form method="post" action="CreateTask">
 
     <div class="mb-3">
-        <div class="mb-1">
-            @Html.DropDownListFor(m => m.ProjectId, new SelectList((ViewBag.Projects) as SelectList, "Value", "Text"), "Select Project")
-            @Html.DropDownListFor(m => m.PersonId, new SelectList((ViewBag.Persons) as SelectList, "Value", "Text"), "Select Person")
-        </div>
-       
+              
         <label for= class="form-label">Description</label>
         <input type="text" class="form-control" asp-for="Description">
-        <label for= class="form-label">To Do</label>
-        <input type="text" class="form-control" asp-for="Todo">
-        <label for= class="form-label">Work In Process</label>
-        <input type="text" class="form-control" asp-for="WorkInProcess">
-        <label for= class="form-label">Done</label>
-        <input type="text" class="form-control" asp-for="Done">
+        <label for= class="form-label">Status</label>
+        <input type="text" class="form-control" asp-for="Status">
         <label for= class="form-label">Start Date</label>
         <input type="text" class="form-control" asp-for="StartDate">
         <label for= class="form-label">Due Date</label>
         <input type="text" class="form-control" asp-for="DueDate">
-   
-      
+        <div class="mb-3">
+            @Html.DropDownListFor(m => m.ProjectId, new SelectList((ViewBag.Projects) as SelectList, "Value", "Text"), "Select Project")
+            @Html.DropDownListFor(n => n.PersonId, new SelectList((ViewBag.Persons) as SelectList, "Value", "Text"), "Select Person")
+        </div>
+         
+   @*      <div class="mb-3">
+            @Html.DropDownListFor(m => m.ProjectId, (SelectList)ViewBag.Projects, "Select Project", new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.PersonId, (SelectList)ViewBag.Persons, "Select Person", new { @class = "form-control" })
+        </div> *@
     </div>
+ 
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Create</button>
 </form>

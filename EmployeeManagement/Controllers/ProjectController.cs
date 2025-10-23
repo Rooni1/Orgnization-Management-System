@@ -1,5 +1,6 @@
 ﻿using EmployeeManagement.Broker;
 using EmployeeManagement.Models.Departments;
+using EmployeeManagement.Models.Project_Management;
 using EmployeeManagement.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -32,11 +33,11 @@ namespace EmployeeManagement.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProject(ProjectVM projectVM)
         {
-            
+
             if (ModelState.IsValid)
             {
                 // Call the broker to create the project
-               _projectBroker.CreateProject(projectVM);
+                _projectBroker.CreateProject(projectVM);
                 ModelState.Clear();
                 return RedirectToAction("CreateProject");
             }
@@ -80,7 +81,7 @@ namespace EmployeeManagement.Controllers
             var projects = await _projectBroker.GetProjects();
             ViewBag.Projects = new SelectList(projects, "Id", "Name");
             var persons = await _personBroker.GetPersons();
-            
+
             var personList = new List<PersonVM>();
             foreach (var person in persons)
             {
@@ -89,10 +90,77 @@ namespace EmployeeManagement.Controllers
                 personVM.FirstName = person.FirstName + " " + person.LastName;
                 personList.Add(personVM);
             }
-            
+
             ViewBag.Persons = new SelectList(personList, "Id", "FirstName");
             return View();
         }
+        [HttpPost]
+        public async Task<IActionResult> CreateTask(TaskVM taskVM)
+        {
+            _projectBroker.CreateTask(taskVM);
+            return RedirectToAction("CreateTask");
 
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetTasks()
+        {
+
+            var tasks = await _projectBroker.GetTasks();
+            return View(tasks);
+        }
+        [HttpGet]
+        public async Task<IActionResult> UpdateTask(Guid id)
+        {
+            var CurrentTask = _projectBroker.GetTaskById(id);
+            if (CurrentTask != null)
+            {
+
+                var persons = await _personBroker.GetPersons();
+                var personList = new List<PersonVM>();
+                foreach (var person in persons)
+                {
+                    var personVM = new PersonVM();
+                    personVM.Id = person.Id;
+                    personVM.FirstName = person.FirstName + " " + person.LastName;
+                    personList.Add(personVM);
+                }
+
+                ViewBag.Persons = new SelectList(personList, "Id", "FirstName");
+                return View(CurrentTask);
+
+            }
+
+            return RedirectToAction("GetTasks");
+        }
+        [HttpPost]
+        public IActionResult UpdateTask(TaskVM taskVM)
+        {
+            _projectBroker.UpdateTask(taskVM);
+            return RedirectToAction("GetTasks");
+        }
+        [HttpPost]
+        public IActionResult DeleteTask(TaskVM taskVM)
+        {
+            _projectBroker.DeleteTask(taskVM);
+            return RedirectToAction("GetTasks");
+        }
+        [HttpGet]
+        public IActionResult CreateActivity(Guid id)
+        {
+            var tasks = _projectBroker.GetTaskById(id);
+            var activityVM = new ActivityVM
+            {
+                TaskManagementId = tasks.Id,
+                TaskDescription = tasks.Description
+            };
+
+            return View(activityVM);
+        }
+        [HttpPost]
+        public IActionResult CreateActivity(ActivityVM activityVM)
+        {
+            _projectBroker.CreateActivity(activityVM);
+            return RedirectToAction("GetTasks");
+        }
     }
 }
