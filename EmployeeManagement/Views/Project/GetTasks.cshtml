@@ -1,0 +1,41 @@
+﻿@model List<EmployeeManagement.ViewModels.TaskVM>
+@{
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th hidden>Id</th>
+            <th hidden>PersonId</th>
+            <th hidden>ProjectId</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Person Name</th>
+            <th>Project Name</th>
+            <th>Start Date</th>
+            <th>Due Date</th>
+            
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tasks in Model)
+        {
+            <tr>
+                <td hidden>@tasks.Id</td>
+                <td hidden>@tasks.PersonId</td>
+                <td hidden>@tasks.ProjectId</td>
+                <td>@tasks.Description</td>
+                <td>@tasks.Status</td>
+                <td>@tasks.PersonName</td>
+                <td>@tasks.ProjectName</td>
+                <td>@tasks.StartDate</td>
+                <td>@tasks.DueDate</td>
+                <td><a href="CreateActivity/@tasks.Id">Add Activities</a></td>
+                <td><a href="UpdateTask/@tasks.Id">Update/Delete</a></td>
+
+            </tr>
+        }
+    </tbody>
+</table>

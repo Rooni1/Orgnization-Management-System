@@ -1,0 +1,41 @@
+﻿@model EmployeeManagement.ViewModels.TaskVM
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>Update/Delete Tasks</h1>
+    </div>
+
+</div>
+<form method="post" action="UpdateTask">
+
+    <div class="mb-3">
+        <label for= class="form-label" hidden>Id</label>
+        <input type="text" class="form-control" asp-for="Id" hidden>
+        <label for= class="form-label">Project Name</label>
+        <input type="text" class="form-control" asp-for="ProjectName">
+        <label for= class="form-label">Description</label>
+        <input type="text" class="form-control" asp-for="Description">
+        <label for= class="form-label">Start Date</label>
+        <input type="text" class="form-control" asp-for="StartDate">
+        <label for= class="form-label">Due Date</label>
+        <input type="text" class="form-control" asp-for="DueDate">
+        <label for= class="form-label">Status</label>
+        <input type="text" class="form-control" asp-for="Status">
+      @*   <label for= class="form-label" hidden>PersonId</label>
+        <input type="text" class="form-control" asp-for="PersonId"> *@
+        <label for= class="form-label" hidden>ProjectId</label>
+        <input type="text" class="form-control" asp-for="ProjectId" hidden>
+        
+        <div class="mb-1">
+            <label for= class="form-label">Person Name</label>
+            @Html.DropDownListFor(m => m.PersonId, new SelectList((ViewBag.Persons) as SelectList, "Value", "Text"), "Select New Person")
+        </div>
+
+              
+        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-danger" asp-action="DeleteTask" asp-controller="Project">Delete</button>
+</form>

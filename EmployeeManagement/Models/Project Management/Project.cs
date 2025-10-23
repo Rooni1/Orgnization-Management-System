@@ -17,5 +17,6 @@
         public DateTime UpdatedAt { get; set; }
         public DateTime LastUpdatedAt { get; set; }
         public string DepartmentName { get; set; }
+        public ICollection<TaskManagement> TaskManage { get; set; }
     }
 }

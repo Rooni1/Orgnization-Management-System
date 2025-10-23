@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using EmployeeManagement.Models.Departments;
+using EmployeeManagement.Models.Project_Management;
 
 namespace EmployeeManagement.Models
 {
@@ -22,6 +23,7 @@ namespace EmployeeManagement.Models
         //public string PersonTypeName { get; set; }
         public Department Departments { get; set; }
         public PersonType PersonTypes { get; set; }
+        public ICollection<TaskManagement> TaskMang { get; set; }
 
 
     }
